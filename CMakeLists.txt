@@ -10,6 +10,8 @@ qt_standard_project_setup()
 
 qt_add_executable(apptodoApp
     main.cpp
+    appseting.cpp
+    appseting.h
 )
 
 qt_add_qml_module(apptodoApp
