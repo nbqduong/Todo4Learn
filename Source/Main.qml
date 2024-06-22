@@ -14,41 +14,24 @@ Window {
            id: view
     }
 
+    property string displayedUsr: "Initial Text"
+    property string displayedPass: "Initial Text"
+
     // Main component
     Column {
         anchors.centerIn: parent
         spacing: 10
 
-        // Text field with placeholder text
-        TextField {
-            id: textField
-            width: 200
-            placeholderText: "Enter text here..."
-        }
-
-        // Display the text entered in the TextField
-        Text {
-            id: displayText
-            text: "Entered text: "
-        }
-
-        // Button to display text
-        Button {
-            text: "Copy"
-            onClicked: {
-                displayText.text = "Copied"
-                view.get(textField.text)
-                // view.start()
+        Login {
+            id: login
+            width: 250
+            height: 200
+            anchors.centerIn: parent
+            onLogin: {
+                console.log("Username: ", username, " Password: ", password)
             }
         }
 
-        // Button to display text
-        Button {
-            text: "Display Text"
-            onClicked: {
-                displayText.text = "Entered text: " + view.emitUserName()
-                // view.start()
-            }
-        }
+
     }
 }

@@ -2,7 +2,7 @@
 #include <QDebug>
 
 view::view(QObject *parent)
-    : QObject{parent}
+    : QObject{parent}, user_name("default")
 {}
 
 void view::start()
@@ -10,9 +10,14 @@ void view::start()
     qInfo() << "test";
 }
 
-void view::get(QString str)
+void view::getUserName(QString str)
 {
     user_name = str;
+}
+
+void view::getPassWord(QString str)
+{
+    tempt_pass = str;
 }
 
 QString view::emitUserName()
