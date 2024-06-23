@@ -1,6 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include "view.h"
+#include "savelogin.h"
 
 
 int main(int argc, char *argv[])
@@ -20,6 +21,6 @@ int main(int argc, char *argv[])
         []() { QCoreApplication::exit(-1); },
         Qt::QueuedConnection);
     engine.load(url);
-
+    login login;
     return app.exec();
 }
