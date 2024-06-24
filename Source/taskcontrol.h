@@ -39,6 +39,7 @@ public:
     bool exec(QSqlQuery &query);
     bool markDone(int id);
     QVector<taskInfoStr> getTasks(int id);
+    bool addTask(int task_id, int usr_id);
 signals:
 };
 
