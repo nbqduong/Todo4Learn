@@ -8,6 +8,9 @@
 #include <QSqlQuery>
 #include <QSqlRecord>
 #include <QVariant>
+#include "Parameter.h"
+
+using namespace parameter;
 
 class login : public QObject
 {
@@ -29,6 +32,7 @@ public:
     bool open();
     void create();
     void load(int value);
+    userInfoStr loadName(QString name);
     void save();
     void remove();
     bool insert();

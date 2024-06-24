@@ -2,7 +2,7 @@
 #include <QQmlApplicationEngine>
 #include "view.h"
 #include "savelogin.h"
-
+#include "databasecontrol.h"
 
 int main(int argc, char *argv[])
 {
@@ -21,6 +21,6 @@ int main(int argc, char *argv[])
         []() { QCoreApplication::exit(-1); },
         Qt::QueuedConnection);
     engine.load(url);
-    login login;
+    databaseControl db;
     return app.exec();
 }

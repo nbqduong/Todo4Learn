@@ -1,11 +1,11 @@
 #include "savelogin.h"
-
+#define TDEBUG
 login::login(QObject *parent) : QObject(parent)
 {
-    QString DataBase = "QMYSQL",  HostName = "localhost",  UserName = "qt6ca",  Password = "qt6ca-Password";
-    openDataBase( DataBase,  HostName,  UserName,  Password);
+    // QString DataBase = "QMYSQL",  HostName = "localhost",  UserName = "qt6ca",  Password = "qt6ca-Password";
+    // openDataBase( DataBase,  HostName,  UserName,  Password);
 
-    load(1);
+    // load(1);
 
     // return false;
 
@@ -19,13 +19,12 @@ login::~login()
 
 void login::openDataBase(QString DataBase, QString HostName, QString UserName, QString Password)
 {
-
     QSqlDatabase db = QSqlDatabase::addDatabase(DataBase);
+
     qInfo() << "Opening Database";
     db.setHostName(HostName);
     db.setUserName(UserName); //Change the username
     db.setPassword(Password); //Change the password
-
 
     bool ok = db.open();
     if(ok)
@@ -75,18 +74,18 @@ void login::create()
     name = "";
 }
 
-void login::load(int value)
+void login::load(int id)
 {
-    qInfo() << "Loading record: " << value;
+#ifdef TDEBUG
+    qInfo() << "Loading id: " << id;
+#endif
 
     QSqlQuery query;
     QString cmd = "SELECT * FROM voidrealms.user WHERE usr_id = :id;";
     query.prepare(cmd);
-    query.bindValue(":id",value);
+    query.bindValue(":id",id);
 
-    bool ok = exec(query);
-
-    if(ok)
+    if(exec(query))
     {
         while (query.next())
         {
@@ -94,12 +93,51 @@ void login::load(int value)
             id = record.value(0).toInt();
             password = record.value(2).toString();
             name = record.value(1).toString();
+#ifdef TDEBUG
+            qInfo() << "Loaded id: " << id << " Name: " << name << "Pass: " << password;
+#endif
+        }
+        return;
+    }
+    else
+    {
+        qInfo() << "Fail command: " << cmd;
+    }
+}
 
-            qInfo() << "Loaded " << id << " pass " << password << " name " << name;
+userInfoStr login::loadName(QString name)
+{
+#ifdef TDEBUG
+    qInfo() << "Loading name: " << name;
+#endif
+    userInfoStr local_data;
 
-            return;
+    QSqlQuery query;
+    QString cmd = "SELECT * FROM voidrealms.user WHERE usr_name = :var;";
+    query.prepare(cmd);
+    query.bindValue(":var",name);
+
+    if(exec(query))
+    {
+
+        while (query.next())
+        {
+            QSqlRecord record = query.record();
+            local_data.id = record.value(0).toInt();
+            local_data.name = record.value(1).toString();
+            local_data.password = record.value(2).toString();
+            local_data.created_day = record.value(3).toString();
+#ifdef TDEBUG
+            qInfo() << "Loaded id: " << local_data.id << " Name: " << local_data.name << "Pass: " << local_data.password;
+#endif
+
         }
     }
+    else
+    {
+        qInfo() << "Fail command: " << cmd;
+    }
+    return local_data;
 }
 
 void login::remove()

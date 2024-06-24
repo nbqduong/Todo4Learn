@@ -44,9 +44,7 @@ Item {
             id: button
             width: parent.width
             anchors.horizontalCenter: parent.horizontalCenter
-            text: qsTr("Submit")
-            // view1.getUserName: ("as")
-            // view1.getUserName: txtUsername
+            text: qsTr("Login")
 
         }
 

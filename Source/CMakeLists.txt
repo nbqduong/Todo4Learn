@@ -14,6 +14,12 @@ qt_add_executable(appSource
     view.cpp
     savelogin.cpp
     savelogin.h
+    databasecontrol.h
+    databasecontrol.cpp
+    Parameter.h
+    taskcontrol.h
+    taskcontrol.cpp
+
 )
 
 qt_add_qml_module(appSource
@@ -24,6 +30,9 @@ qt_add_qml_module(appSource
         SOURCES view.h view.cpp
         QML_FILES Login.qml
         SOURCES savelogin.cpp savelogin.h
+        SOURCES databasecontrol.h databasecontrol.cpp
+        SOURCES Parameter.h
+        SOURCES taskcontrol.h taskcontrol.cpp
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
